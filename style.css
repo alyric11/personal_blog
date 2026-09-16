@@ -1,0 +1,43 @@
+/* EDITING THE MAIN BODY FIRST*/
+body {
+    font-family: Baskerville;
+    background-color: white;
+    color: black;
+}
+
+
+
+/* EDITING THE HEADER INSIDE BODY */
+header {
+    padding: 20px;
+    text-align: center;
+}
+
+nav {
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: black;
+}
+
+
+
+/* EDITING THE MAIN INSIDE BODY */
+.home-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 20px;
+}
+
+.box:first-child {
+    grid-row: 1 / 3;
+}
+
+.box {
+    border: 1px solid black;
+    padding: 5px;
+}
