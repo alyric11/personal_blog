@@ -13,7 +13,7 @@ body {
 
 /* EDITING THE HEADER INSIDE BODY */
 header {
-    padding-right: 200px;
+    padding: 20px;
     text-align: center;
     padding-bottom: 15px;
 }
