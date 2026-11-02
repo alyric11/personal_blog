@@ -1,38 +1,55 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 /* EDITING THE MAIN BODY FIRST*/
 body {
-    font-family: Baskerville;
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    font-family: Baskerville, Georgia, serif;
     background-color: rgb(246, 236, 223);
     color: black;
 
     max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: clamp(12px, 3vw, 20px);
+    overflow-wrap: anywhere;
 }
 
 
 
 /* EDITING THE HEADER INSIDE BODY */
 header {
-    padding: 20px;
+    padding: clamp(8px, 2vw, 20px);
     text-align: center;
     padding-bottom: 15px;
 }
 
 h1 {
     margin-top: 10px;
-    font-size: 40px;
+    font-size: clamp(28px, 6vw, 40px);
     margin-bottom: 10px;
 }
 
 nav {
-    margin-top: 50px;
+    margin-top: clamp(24px, 5vw, 50px);
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
+    gap: 8px 20px;
 }
 
 nav a {
     font-size: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 6px 4px;
     margin-left: 10px;
     margin-right: 10px;
     text-decoration: none;
@@ -43,6 +60,12 @@ nav a:hover {
     text-decoration: underline;
 }
 
+nav a:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
 nav a:visited {
     color: purple;
 }
@@ -51,12 +74,13 @@ nav a:visited {
 
 /* EDITING THE MAIN INSIDE BODY */
 main {
-    padding: 20px;
+    min-width: 0;
+    padding: clamp(8px, 2vw, 20px);
 }
 
 .home-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
     grid-template-rows: 1fr 1fr;
     gap: 20px;
 }
@@ -66,20 +90,46 @@ main {
 }
 
 .box {
+    min-width: 0;
     background-color: white;
     border: 1px solid black;
     border-radius: 10px;
-    padding: 10px 20px;
+    padding: 10px clamp(12px, 2vw, 20px);
+}
+
+main img,
+main video,
+main svg {
+    max-width: 100%;
+    height: auto;
 }
 
 
 
 /* EDITING THE FOOTER INSIDE BODY */
 footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+    margin-top: auto;
     text-align: center;
     padding: 20px;
+}
+
+@media (max-width: 600px) {
+    nav {
+        gap: 12px;
+    }
+
+    nav a {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .home-grid {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto;
+        gap: 16px;
+    }
+
+    .box:first-child {
+        grid-row: auto;
+    }
 }
