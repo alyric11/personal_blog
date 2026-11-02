@@ -1,0 +1,5 @@
+{% extends 'posts_base.html' %}
+{% block content %}
+<p class="post-card" role="alert">{{ message }}</p>
+<p><a href="{{ url_for('posts.feed') }}">Back to posts</a> · <a href="{{ url_for('posts.login') }}">Owner login</a></p>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'posts_base.html' %}
+{% block content %}
+{% if owner %}
+<div class="post-toolbar">
+    <a class="post-button" href="{{ url_for('posts.editor') }}">Write a post</a>
+</div>
+{% endif %}
+{% for post in posts %}
+<article class="post-card" id="post-{{ post.id }}">
+    <div class="post-heading">
+        <strong>Lyric</strong>
+        <time datetime="{{ post.created_at }}">{{ post.created_at[:10] }} · {{ post.created_at[11:16] }} UTC</time>
+        {% if post.updated_at != post.created_at %}<span class="post-meta">edited</span>{% endif %}
+    </div>
+    {% if post.text %}<p class="post-text">{{ post.text }}</p>{% endif %}
+    {% if post.images %}
+    <div class="post-images">
+        {% for image in post.images %}
+        <a href="{{ url_for('posts.uploaded_image', filename=image.filename) }}" target="_blank" rel="noopener">
+            <img src="{{ url_for('posts.uploaded_image', filename=image.filename) }}" alt="Image {{ loop.index }} attached to Lyric's post" loading="lazy">
+        </a>
+        {% endfor %}
+    </div>
+    {% endif %}
+    {% if owner %}
+    <div class="post-actions">
+        <a href="{{ url_for('posts.editor', post_id=post.id) }}">Edit</a>
+        <a href="{{ url_for('posts.delete', post_id=post.id) }}">Delete</a>
+    </div>
+    {% endif %}
+</article>
+{% endfor %}
+{% if older %}<p><a href="{{ url_for('posts.feed', before=older) }}">Older posts →</a></p>{% endif %}
+{% if request.args.get('before') %}<p><a href="{{ url_for('posts.feed') }}">Back to newest posts</a></p>{% endif %}
+{% endblock %}

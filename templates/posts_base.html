@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Posts{% endblock %} — Lyric's Archive</title>
+    <link rel="stylesheet" href="{{ url_for('page', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('page', filename='posts.css') }}">
+</head>
+<body>
+    <header>
+        <div class="owner-access">
+            {% if owner %}
+            <form method="post" action="{{ url_for('posts.logout') }}">
+                <input type="hidden" name="csrf" value="{{ csrf_token() }}">
+                <button type="submit">Sign out</button>
+            </form>
+            {% else %}
+            <a href="{{ url_for('posts.login') }}">Owner login</a>
+            {% endif %}
+        </div>
+        <h1>Posts</h1>
+        <nav>
+            <a href="/index.html">Home</a>
+            <a href="/about.html">About Me</a>
+            <a href="/journals.html">Journals</a>
+            <a href="/posts.html" aria-current="page">Posts</a>
+            <a href="/music.html">Music</a>
+            <a href="/links.html">External Links</a>
+        </nav>
+    </header>
+    <main class="posts-main">
+        {% block content %}{% endblock %}
+    </main>
+    <footer><p>© 2026 Lyric</p></footer>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

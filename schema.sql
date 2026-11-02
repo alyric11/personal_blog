@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS posts (
 );
 
 -- Four numbered slots preserve image order and enforce the limit per post.
--- Image files will live in instance/uploads; only their filenames go here.
+-- Image files live in instance/uploads; only their filenames go here.
 CREATE TABLE IF NOT EXISTS post_images (
     id INTEGER PRIMARY KEY,
     post_id INTEGER NOT NULL REFERENCES posts(id) ON DELETE CASCADE,

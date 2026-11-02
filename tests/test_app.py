@@ -15,7 +15,7 @@ class FoundationTests(unittest.TestCase):
 
     def test_existing_pages_and_css_are_served_unchanged(self):
         for filename in (
-            "index.html", "about.html", "journals.html", "posts.html",
+            "index.html", "about.html", "journals.html",
             "music.html", "links.html", "style.css",
         ):
             with self.subTest(filename=filename):

@@ -1,6 +1,8 @@
-"""Serve the existing site and prepare storage for the Posts feature."""
+"""Serve the site and its single-owner posting feature."""
 
+import secrets
 import sqlite3
+from datetime import timedelta
 from pathlib import Path
 
 from flask import Flask, abort, current_app, g, send_from_directory
@@ -22,19 +24,39 @@ def close_db(error=None):
 
 
 def create_app(instance_path=None):
-    app = Flask(__name__, static_folder=None, instance_path=instance_path)
+    app = Flask(__name__, static_folder=None, template_folder="templates", instance_path=instance_path)
     storage = Path(app.instance_path)
     (storage / "uploads").mkdir(parents=True, exist_ok=True)
+    secret_file = storage / "session-secret"
+    try:
+        with secret_file.open("x") as secret:
+            secret_file.chmod(0o600)
+            secret.write(secrets.token_hex(32))
+    except FileExistsError:
+        pass
+    app.config.update(
+        SECRET_KEY=secret_file.read_text(),
+        MAX_CONTENT_LENGTH=22 * 1024 * 1024,
+        SESSION_COOKIE_HTTPONLY=True,
+        SESSION_COOKIE_SAMESITE="Lax",
+        PERMANENT_SESSION_LIFETIME=timedelta(hours=12),
+    )
+    app.config.from_prefixed_env()
     app.teardown_appcontext(close_db)
 
     with app.app_context():
         with app.open_resource("schema.sql", mode="r") as schema:
             get_db().executescript(schema.read())
 
-    # Only these public files are served; Python, uploads and the DB stay private.
+    from posts import bp, set_password
+
+    app.register_blueprint(bp)
+    app.cli.add_command(set_password)
+
+    # Only these public files are served; private storage stays inaccessible.
     public_files = {
-        "index.html", "about.html", "journals.html", "posts.html",
-        "music.html", "links.html", "style.css",
+        "index.html", "about.html", "journals.html",
+        "music.html", "links.html", "style.css", "posts.css", "posts.js",
     }
 
     @app.get("/")

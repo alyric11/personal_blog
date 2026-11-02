@@ -1,0 +1,134 @@
+/* Posting pages only. Keep the existing site's colours and font. */
+.posts-main {
+    width: 100%;
+    max-width: 760px;
+    margin: 0 auto;
+    font-size: 18px;
+    line-height: 1.5;
+}
+
+.post-card {
+    margin: 0 0 20px;
+    padding: clamp(16px, 3vw, 24px);
+    border: 1px solid black;
+    border-radius: 10px;
+    background: white;
+}
+
+.post-card h2 {
+    margin-top: 0;
+    font-size: 24px;
+}
+
+.post-toolbar,
+.post-actions,
+.post-heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+}
+
+.post-toolbar {
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.post-actions {
+    margin-top: 12px;
+}
+
+.post-heading time,
+.post-meta {
+    color: #555;
+    font-size: 15px;
+}
+
+.post-text {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.post-images {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.post-images > :only-child {
+    grid-column: 1 / -1;
+}
+
+.post-images img {
+    display: block;
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 6px;
+}
+
+.post-form {
+    display: grid;
+    gap: 12px;
+}
+
+.post-form textarea,
+.post-form input[type="password"],
+.post-form input[type="file"] {
+    min-width: 0;
+    width: 100%;
+    font: inherit;
+}
+
+.post-form textarea,
+.post-form input[type="password"] {
+    padding: 10px;
+    border: 1px solid #777;
+    border-radius: 5px;
+}
+
+.post-form textarea {
+    resize: vertical;
+}
+
+.post-form fieldset {
+    min-width: 0;
+    border: 1px solid #aaa;
+}
+
+.posts-main button,
+.post-button {
+    display: inline-block;
+    min-height: 44px;
+    padding: 8px 14px;
+    border: 1px solid black;
+    border-radius: 6px;
+    background: white;
+    color: black;
+    font: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.posts-main a {
+    text-underline-offset: 3px;
+}
+
+.posts-main :focus-visible {
+    outline: 2px solid black;
+    outline-offset: 3px;
+}
+
+.form-error {
+    color: #8b1616;
+}
+
+.existing-image {
+    min-width: 0;
+}
+
+@media (max-width: 400px) {
+    .post-images {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}

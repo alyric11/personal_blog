@@ -1,0 +1,19 @@
+{% extends 'posts_base.html' %}
+{% block title %}Owner login{% endblock %}
+{% block content %}
+<section class="post-card">
+    <h2>Owner login</h2>
+    {% if configured %}
+    {% if error %}<p class="form-error" role="alert">{{ error }}</p>{% endif %}
+    <form method="post" class="post-form">
+        <input type="hidden" name="csrf" value="{{ csrf_token() }}">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+        <button type="submit">Sign in</button>
+    </form>
+    {% else %}
+    <p>Owner login hasn't been set up yet.</p>
+    {% endif %}
+</section>
+<p><a href="{{ url_for('posts.feed') }}">Back to posts</a></p>
+{% endblock %}

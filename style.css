@@ -35,6 +35,32 @@ h1 {
     margin-bottom: 10px;
 }
 
+.owner-access {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 8px;
+}
+
+.owner-access a,
+.owner-access button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 6px 10px;
+    border: 0;
+    background: transparent;
+    color: black;
+    font: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+}
+
+.owner-access :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+}
+
 nav {
     margin-top: clamp(24px, 5vw, 50px);
     display: flex;
